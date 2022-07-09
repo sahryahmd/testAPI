@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ahmad Bushairi",
+      "email": "sahry10@gmail.com",
+      "bidang": "belajar RN"
+    },
+    {
+      "name": "sugeng",
+      "email": "sugeng@mail.com",
+      "bidang": "IT",
+      "id": 2
+    },
+    {
+      "name": "alan",
+      "email": "alan@mail.com",
+      "bidang": "developer",
+      "id": 3
+    }
+  ]
+}

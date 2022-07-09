@@ -1,0 +1,98 @@
+import axios from 'axios';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+
+const App = () => {
+  //membuat variabel getData
+  const [dataUser, setDataUser] = useState({
+    avatar: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+  });
+
+  //memunculkan getData dari axios
+  const getData = () => {
+    axios
+      .get('https://reqres.in/api/users/2')
+      .then(result => {
+        setDataUser(result.data.data);
+      })
+      .catch(err => console.log('err: ', err));
+  };
+
+  const [dataJob, setDataJob] = useState({
+    name: '',
+    job: '',
+  });
+
+  const postData = () => {
+    //Call API dengan method POST
+    const dataForApi = {
+      name: 'morpheus',
+      job: 'leader',
+    };
+
+    axios
+      .post('https://reqres.in/api/users', dataForApi)
+      .then(result => {
+        setDataJob(result.data);
+      })
+      .catch(err => console.log('err: ', err));
+  };
+  return (
+    <View>
+      <Text>Test Method GET & POST</Text>
+      <View style={{marginTop: 20}}>
+        <Text> Test Dengan Method GET</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#1565c0',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            marginHorizontal: 50,
+            paddingVertical: 10,
+            marginTop: 10,
+          }}
+          onPress={getData}>
+          <Text style={{color: '#ffffff', fontWeight: 'bold'}}>GET DATA</Text>
+        </TouchableOpacity>
+        <Text>Hasil Dengan Method GET</Text>
+        {dataUser.avatar.length > 0 && (
+          <Image
+            source={{uri: dataUser.avatar}}
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+            }}
+          />
+        )}
+        <Text>{`${dataUser.first_name} ${dataUser.last_name}`}</Text>
+        <Text>{dataUser.email}</Text>
+      </View>
+      <View style={{marginTop: 50}}>
+        <Text> Test Dengan Method Post</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#1565c0',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            marginHorizontal: 50,
+            paddingVertical: 10,
+            marginTop: 10,
+          }}
+          onPress={postData}>
+          <Text style={{color: '#ffffff', fontWeight: 'bold'}}>POST DATA</Text>
+        </TouchableOpacity>
+        <Text>Hasil Dengan Method Post</Text>
+        <Text>{dataJob.name}</Text>
+        <Text>{dataJob.job}</Text>
+      </View>
+    </View>
+  );
+};
+
+export default App;
